@@ -1,0 +1,276 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>მაღაზიის დამატება</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="tutorial-page">
+
+  <ion-slides pager (ionSlideDidChange)="slideChanged()">
+    <ion-slide >
+      <div  class="ion-slide-content">
+
+
+          <ion-list>
+            <ion-item>
+              <ion-input placeholder="Title"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input placeholder="Location"></ion-input>
+            </ion-item>
+
+
+
+            <ion-item>
+              <ion-label>Start Date</ion-label>
+              <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="event.month"></ion-datetime>
+            </ion-item>
+
+
+            <ion-item>
+              <ion-label>Start Time</ion-label>
+              <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="event.timeStarts"></ion-datetime>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>Ends</ion-label>
+              <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="event.timeEnds"></ion-datetime>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>Gender</ion-label>
+                <ion-select [(ngModel)]="gender">
+                  <ion-option value="f">Female</ion-option>
+                  <ion-option value="m">Male</ion-option>
+                </ion-select>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Gaming</ion-label>
+                <ion-select [(ngModel)]="gaming" interface="popover">
+                  <ion-option value="nes">NES</ion-option>
+                  <ion-option value="n64">Nintendo64</ion-option>
+                  <ion-option value="ps">PlayStation</ion-option>
+                  <ion-option value="genesis">Sega Genesis</ion-option>
+                  <ion-option value="saturn">Sega Saturn</ion-option>
+                  <ion-option value="snes">SNES</ion-option>
+                </ion-select>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Notifications</ion-label>
+                <ion-select [(ngModel)]="notifications" interface="action-sheet">
+                  <ion-option value="enable">Enable</ion-option>
+                  <ion-option value="mute">Mute</ion-option>
+                  <ion-option value="mute_week">Mute for a week</ion-option>
+                  <ion-option value="mute_year" (ionSelect)="notificationSelect($event)">Mute for a year</ion-option>
+                </ion-select>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Operating System</ion-label>
+                <ion-select [(ngModel)]="os" submitText="Okay" cancelText="Nah">
+                  <ion-option value="dos">DOS</ion-option>
+                  <ion-option value="lunix">Linux</ion-option>
+                  <ion-option value="mac7">Mac OS 7</ion-option>
+                  <ion-option value="mac8">Mac OS 8</ion-option>
+                  <ion-option value="win3.1">Windows 3.1</ion-option>
+                  <ion-option value="win95">Windows 95</ion-option>
+                  <ion-option value="win98">Windows 98</ion-option>
+                </ion-select>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Music</ion-label>
+                <ion-select [(ngModel)]="music" [selectOptions]="musicAlertOpts">
+                  <ion-option>Alice in Chains</ion-option>
+                  <ion-option>Green Day</ion-option>
+                  <ion-option>Nirvana</ion-option>
+                  <ion-option>Pearl Jam</ion-option>
+                  <ion-option>Smashing Pumpkins</ion-option>
+                  <ion-option>Soundgarden</ion-option>
+                  <ion-option (select)="stpSelect()">Stone Temple Pilots</ion-option>
+                </ion-select>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Date</ion-label>
+                <ion-select [(ngModel)]="month">
+                  <ion-option value="01">January</ion-option>
+                  <ion-option value="02">February</ion-option>
+                  <ion-option value="03">March</ion-option>
+                  <ion-option value="04">April</ion-option>
+                  <ion-option value="05">May</ion-option>
+                  <ion-option value="06">June</ion-option>
+                  <ion-option value="07">July</ion-option>
+                  <ion-option value="08">August</ion-option>
+                  <ion-option value="09">September</ion-option>
+                  <ion-option value="10">October</ion-option>
+                  <ion-option value="11">November</ion-option>
+                  <ion-option value="12" checked="true">December</ion-option>
+                </ion-select>
+                <ion-select [(ngModel)]="year">
+                  <ion-option>1989</ion-option>
+                  <ion-option>1990</ion-option>
+                  <ion-option>1991</ion-option>
+                  <ion-option>1992</ion-option>
+                  <ion-option>1993</ion-option>
+                  <ion-option checked="true">1994</ion-option>
+                  <ion-option>1995</ion-option>
+                  <ion-option>1996</ion-option>
+                  <ion-option>1997</ion-option>
+                  <ion-option>1998</ion-option>
+                  <ion-option>1999</ion-option>
+                </ion-select>
+              </ion-item>
+
+          </ion-list>
+        </div>
+    </ion-slide>
+    <ion-slide >
+      <div  class="ion-slide-content">
+
+
+          <ion-list>
+            <ion-item>
+              <ion-input placeholder="Title"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input placeholder="Location"></ion-input>
+            </ion-item>
+
+
+
+            <ion-item>
+              <ion-label>Start Date</ion-label>
+              <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="event.month"></ion-datetime>
+            </ion-item>
+
+
+            <ion-item>
+              <ion-label>Start Time</ion-label>
+              <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="event.timeStarts"></ion-datetime>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>Ends</ion-label>
+              <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="event.timeEnds"></ion-datetime>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>Gender</ion-label>
+                <ion-select [(ngModel)]="gender">
+                  <ion-option value="f">Female</ion-option>
+                  <ion-option value="m">Male</ion-option>
+                </ion-select>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Gaming</ion-label>
+                <ion-select [(ngModel)]="gaming" interface="popover">
+                  <ion-option value="nes">NES</ion-option>
+                  <ion-option value="n64">Nintendo64</ion-option>
+                  <ion-option value="ps">PlayStation</ion-option>
+                  <ion-option value="genesis">Sega Genesis</ion-option>
+                  <ion-option value="saturn">Sega Saturn</ion-option>
+                  <ion-option value="snes">SNES</ion-option>
+                </ion-select>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Notifications</ion-label>
+                <ion-select [(ngModel)]="notifications" interface="action-sheet">
+                  <ion-option value="enable">Enable</ion-option>
+                  <ion-option value="mute">Mute</ion-option>
+                  <ion-option value="mute_week">Mute for a week</ion-option>
+                  <ion-option value="mute_year" (ionSelect)="notificationSelect($event)">Mute for a year</ion-option>
+                </ion-select>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Operating System</ion-label>
+                <ion-select [(ngModel)]="os" submitText="Okay" cancelText="Nah">
+                  <ion-option value="dos">DOS</ion-option>
+                  <ion-option value="lunix">Linux</ion-option>
+                  <ion-option value="mac7">Mac OS 7</ion-option>
+                  <ion-option value="mac8">Mac OS 8</ion-option>
+                  <ion-option value="win3.1">Windows 3.1</ion-option>
+                  <ion-option value="win95">Windows 95</ion-option>
+                  <ion-option value="win98">Windows 98</ion-option>
+                </ion-select>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Music</ion-label>
+                <ion-select [(ngModel)]="music" [selectOptions]="musicAlertOpts">
+                  <ion-option>Alice in Chains</ion-option>
+                  <ion-option>Green Day</ion-option>
+                  <ion-option>Nirvana</ion-option>
+                  <ion-option>Pearl Jam</ion-option>
+                  <ion-option>Smashing Pumpkins</ion-option>
+                  <ion-option>Soundgarden</ion-option>
+                  <ion-option (select)="stpSelect()">Stone Temple Pilots</ion-option>
+                </ion-select>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Date</ion-label>
+                <ion-select [(ngModel)]="month">
+                  <ion-option value="01">January</ion-option>
+                  <ion-option value="02">February</ion-option>
+                  <ion-option value="03">March</ion-option>
+                  <ion-option value="04">April</ion-option>
+                  <ion-option value="05">May</ion-option>
+                  <ion-option value="06">June</ion-option>
+                  <ion-option value="07">July</ion-option>
+                  <ion-option value="08">August</ion-option>
+                  <ion-option value="09">September</ion-option>
+                  <ion-option value="10">October</ion-option>
+                  <ion-option value="11">November</ion-option>
+                  <ion-option value="12" checked="true">December</ion-option>
+                </ion-select>
+                <ion-select [(ngModel)]="year">
+                  <ion-option>1989</ion-option>
+                  <ion-option>1990</ion-option>
+                  <ion-option>1991</ion-option>
+                  <ion-option>1992</ion-option>
+                  <ion-option>1993</ion-option>
+                  <ion-option checked="true">1994</ion-option>
+                  <ion-option>1995</ion-option>
+                  <ion-option>1996</ion-option>
+                  <ion-option>1997</ion-option>
+                  <ion-option>1998</ion-option>
+                  <ion-option>1999</ion-option>
+                </ion-select>
+              </ion-item>
+
+          </ion-list>
+        </div>
+    </ion-slide>
+    <ion-slide>
+
+      <img src="https://ionicframework.com/dist/preview-app/www/assets/img/ica-slidebox-img-4.png" class="slide-image"/>
+      <h2 class="slide-title">დარწმუნებული ხართ რომ გსურთ დასრულება?</h2>
+      <button ion-button large clear icon-end color="primary" (click)="CreateStore()">
+        დასრულება
+        <ion-icon name="arrow-forward"></ion-icon>
+      </button>
+    </ion-slide>
+  </ion-slides>
+</ion-content>
+<ion-footer>
+    <ion-grid >
+        <ion-row no-padding no-margin>
+            <ion-col col-5 no-padding>
+                <button ion-button full (click)="back()" *ngIf="showBack">უკან</button>
+            </ion-col>
+            <ion-col col-2 no-padding>
+
+            </ion-col>
+
+            <ion-col col-5 no-padding>
+                <button ion-button full color="secondary" (click)="next()" *ngIf="showFooter">შემდეგი</button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-footer>

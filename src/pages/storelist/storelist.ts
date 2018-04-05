@@ -8,11 +8,12 @@ import { StoresProvider } from '../../providers/stores/stores';
 import { ShowStorePage } from '../show-store/show-store';
 import { AddstorePage } from '../addstore/addstore';
 
+
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'page-storelist',
+  templateUrl: 'storelist.html',
 })
-export class HomePage {
+export class StorelistPage {
   public stores: Array<any>;
 
   constructor(public navCtrl: NavController,private storage: Storage,private UserService: UserProvider, private StoresProvider: StoresProvider, private alertCtrl: AlertController) {
@@ -39,4 +40,5 @@ export class HomePage {
       this.storage.clear();
       this.navCtrl.setRoot(LoginPage);
   }
+
 }
