@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController ,AlertController } from 'ionic-angular';
+import { NavController ,AlertController,NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { LoginPage } from '../login/login';
 
@@ -16,7 +16,10 @@ import { AddstorePage } from '../addstore/addstore';
 export class StorelistPage {
   public stores: Array<any>;
 
-  constructor(public navCtrl: NavController,private storage: Storage,private UserService: UserProvider, private StoresProvider: StoresProvider, private alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController,  public navParams: NavParams,private storage: Storage,private UserService: UserProvider, private StoresProvider: StoresProvider, private alertCtrl: AlertController) {
+
+
+      console.log(this.navParams);
       this.storage.get("token").then((val)=>{
 
           if(val=="undefined" || val =='' || val==null){

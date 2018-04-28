@@ -4,3 +4,21 @@ page-addstore {
 .slide-zoom ,.ion-slide-content,ion-list{
 height: 100% !important;
 }
+.top-hr{
+  border-top:1px solid black;
+}
+
+.bottom-hr{
+  border-bottom:1px solid black;
+}
+.box{
+  padding-top:10px;
+  padding-bottom: 10px;
+}
+ion-card{
+  padding-top:0px;
+    padding-bottom:0px;
+}
+.left-col{
+  padding-left:20px;
+}

@@ -8,6 +8,7 @@ import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
 import { ShowStorePage } from '../pages/show-store/show-store';
 import { AddstorePage } from '../pages/addstore/addstore';
+import { StoreModalPage } from '../pages/store-modal/store-modal';
 import { StorelistPage } from '../pages/storelist/storelist';
 
 @Component({

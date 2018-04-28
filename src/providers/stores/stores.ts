@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Storage } from '@ionic/storage';
 
 /*
   Generated class for the StoresProvider provider.
@@ -9,32 +10,40 @@ import { Injectable } from '@angular/core';
 */
 @Injectable()
 export class StoresProvider {
-  public stores:any;
-  constructor(public http: HttpClient) {
-    this.stores=[{
-        name:"2 ნაბიჯი",
-        date:"2018-03-05",
-        check:"გიორგი პატარაია",
-        img:"https://www.unicard.ge/static/wysiwygs/2-nabiji-news-eng.png"
-    },
-    {
-        name:"3 ნაბიჯი",
-        date:"2018-03-05",
-        img:"https://www.unicard.ge/static/wysiwygs/2-nabiji-news-eng.png",
-        check:"გიორგი პატარაია"
-    },
-    {
-        name:"4 ნაბიჯი",
-        date:"2018-03-05",
-        img:"https://www.unicard.ge/static/wysiwygs/2-nabiji-news-eng.png",
-        check:"გიორგი პატარაია"
-    }
-    ];
+  public stores:Array<any>;
+  private store:Array<any>;
+  constructor(public http: HttpClient,private storage : Storage) {
+
+        this.AllStores();
   }
 
-    GetStores(){
-     return this.stores;
-   }
+AllStores(){
+  this.stores=[];
+  this.storage.forEach((val,key)=>{
+
+      if(key!='token'){
+          let data=JSON.parse(val);
+
+          this.stores.push({
+              name:data.mainInfo[1].comment,
+              date:data.createdate,
+              update:data.update,
+              check:data.mainInfo[6].comment,
+              score:data.score
+          });
+
+      }
+  });
+  return true;
+}
+
+
+  GetStores(){
+    if(this.AllStores()){
+        return this.stores;
+    }
+   return [];
+  }
 
 
 

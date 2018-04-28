@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
+
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import {HttpClientModule} from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
@@ -9,12 +10,15 @@ import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
 import { ShowStorePage } from '../pages/show-store/show-store';
 import { AddstorePage } from '../pages/addstore/addstore';
-import {StorelistPage} from '../pages/storelist/storelist';
+import { StoreModalPage } from '../pages/store-modal/store-modal';
+import { StorelistPage} from '../pages/storelist/storelist';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { UserProvider } from '../providers/user/user';
 import { StoresProvider } from '../providers/stores/stores';
+import { AddStoreProvider } from '../providers/add-store/add-store';
+import { ScoreProvider } from '../providers/score/score';
 
 
 @NgModule({
@@ -25,7 +29,8 @@ import { StoresProvider } from '../providers/stores/stores';
     LoginPage,
     ShowStorePage,
     AddstorePage,
-    StorelistPage
+    StorelistPage,
+    StoreModalPage
   ],
   imports: [
     BrowserModule,
@@ -41,7 +46,8 @@ import { StoresProvider } from '../providers/stores/stores';
     LoginPage,
     ShowStorePage,
     AddstorePage,
-    StorelistPage
+    StorelistPage,
+    StoreModalPage
   ],
   providers: [
     StatusBar,
@@ -49,7 +55,9 @@ import { StoresProvider } from '../providers/stores/stores';
 
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserProvider,
-    StoresProvider
+    StoresProvider,
+    AddStoreProvider,
+    ScoreProvider
   ]
 })
 export class AppModule {}
