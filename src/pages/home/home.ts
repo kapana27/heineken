@@ -2,11 +2,14 @@ import { Component } from '@angular/core';
 import { NavController ,AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { LoginPage } from '../login/login';
+import { TradePage } from '../trade/trade';
+import { ScorePage } from '../score/score';
 
 import { UserProvider } from '../../providers/user/user';
 import { StoresProvider } from '../../providers/stores/stores';
 import { ShowStorePage } from '../show-store/show-store';
 import { AddstorePage } from '../addstore/addstore';
+
 
 @Component({
   selector: 'page-home',
@@ -26,12 +29,18 @@ export class HomePage {
   }
 
   GetStores(){
+
     this.stores=this.StoresProvider.GetStores();
 
   }
   show(s){
-      this.navCtrl.push(ShowStorePage,s);
+      this.navCtrl.push(ScorePage,{'score':s.score});
   }
+
+  createStore(){
+    this.navCtrl.push(TradePage);
+  }
+
   AddNewStore(){
     let prompt = this.alertCtrl.create({
       title: 'Name',
@@ -59,9 +68,9 @@ export class HomePage {
     prompt.present();
 
 
-  } 
+  }
   logout(){
-      this.storage.clear();
+      this.storage.remove('token');
       this.navCtrl.setRoot(LoginPage);
   }
 }

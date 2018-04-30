@@ -19,11 +19,12 @@ export class ScoreProvider {
   }
 
   calculate(data){
+    console.log(JSON.stringify(data));
 
     for(let i=1;i<5;i++){
       for(let key of data['step'+i]) {
         for(let key of data['step'+i]) {
-            if(!key.na){
+            if(!key.na && key.calculate){
                 this.counter++;
                 if(key.avaliable){
                     this.avaliable++;

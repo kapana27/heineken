@@ -40,9 +40,9 @@ export class LoginPage {
             this.navCtrl.setRoot(HomePage);
         }else{
           let alert = this.alertCtrl.create({
-           title: 'შეცდომა',
-           subTitle: 'მომხმარებლის იუზერი ან პაროლი არასწორია',
-           buttons: ['დახურვა']
+           title: 'Error',
+           subTitle: 'Username or Password is incorrect',
+           buttons: ['close']
           });
           alert.present();
         }

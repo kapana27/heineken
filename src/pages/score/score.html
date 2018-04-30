@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Home</ion-title>
+    <ion-buttons end>
+
+  </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding  text-center>
+    <ion-card  class="score">
+        Score: {{score}}
+    </ion-card>
+    <button ion-button color="secondary" round outline (click)="go()">HOME</button>
+</ion-content>

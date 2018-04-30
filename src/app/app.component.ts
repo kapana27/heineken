@@ -26,8 +26,8 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'მთავარი', component: HomePage },
-      { title: 'მაღაზიების სია', component: StorelistPage }
+      { title: 'Main', component: HomePage },
+      { title: 'List', component: StorelistPage }
     ];
 
   }

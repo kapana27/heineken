@@ -26,23 +26,46 @@
           </div>
       </ion-content>
     </ion-slide>
+    <ion-slide>
+      <div  class="ion-slide-content">
+        <ion-list no-border>
+          <ion-row class="bottom-hr">
+            <ion-col col-8 text-left>Parameter</ion-col>
+            <ion-col col-2 text-center>yes</ion-col>
+            <ion-col col-2 text-center>no</ion-col>
+          </ion-row>
+
+
+            <ion-row *ngFor="let s of params['chparams']" class="item">
+              <ion-col col-8 text-left>{{s.name}}</ion-col>
+              <ion-col col-2 text-center>  <ion-checkbox color="secondary" [(ngModel)]="s.yes" (ngModelChange)="checkYesNo(s,'yes')"></ion-checkbox></ion-col>
+              <ion-col col-2 text-center>  <ion-checkbox color="secondary" [(ngModel)]="s.no" (ngModelChange)="checkYesNo(s,'no')"></ion-checkbox></ion-col>
+            </ion-row>
+
+          </ion-list>
+      </div>
+    </ion-slide>
+
     <ion-slide >
         <div  class="ion-slide-content">
+          <ion-row class="bottom-hr">
+            <ion-col col-8 text-left>SKU</ion-col>
+            <ion-col col-2 text-center>yes</ion-col>
+            <ion-col col-2 text-center>no</ion-col>
+          </ion-row>
           <div *ngFor="let s of params['step1']">
             <!--a ion-item (click)="openModal(s)" *ngFor="let s of params['step1']">  {{s.name}}  &nbsp; {{s.size}}ml</a-->
-            <ion-row  (click)="showComment(s)" class=" bottom-hr box">
-              <ion-col text-left>
+          <ion-row  class=" box">
+              <ion-col text-left col-8>
               {{s.name}}  &nbsp; {{s.size}}ml
               </ion-col>
-
+              <ion-col col-2 text-center>  <ion-checkbox color="secondary" [(ngModel)]="s.avaliable" (ngModelChange)="AvaliableFunc(s,'yes')"></ion-checkbox></ion-col>
+              <ion-col col-2 text-center>  <ion-checkbox color="secondary" [(ngModel)]="s.notavaliable" (ngModelChange)="AvaliableFunc(s,'no')"></ion-checkbox></ion-col>
             </ion-row>
             <ion-row *ngIf="visible==s.id" text-left>
-              <ion-col col-12 >
-                <ion-row>
-                  <ion-col col-10>availability</ion-col>
-                    <ion-col>  <ion-checkbox [(ngModel)]="s.avaliable"  color="secondary"></ion-checkbox></ion-col>
-                </ion-row>
-                <div *ngIf="s.avaliable" class="bottom-hr">
+              <ion-card col-12 >
+
+                <div *ngIf="s.avaliable" >
                   <ion-row>
                     <ion-col col-8> Price</ion-col>
                     <ion-col>
@@ -62,7 +85,7 @@
                         </ion-col>
                      </ion-row>
                 </div>
-              </ion-col>
+              </ion-card>
           </ion-row>
         </div>
         </div>
@@ -78,36 +101,73 @@
             <strong >Zone</strong>
           </ion-col>
           <ion-col>
-              <strong>Av</strong>
+              <strong>Yes</strong>
           </ion-col>
           <ion-col>
               <strong>N/A</strong>
           </ion-col>
         </ion-row>
-        <div *ngFor="let s of params['step2']" class=" bottom-hr box">
-          <ion-row  (click)="showComment(s)">
+        <div *ngFor="let s of params['step2']" class=" box">
+          <ion-row  (click)="showComment(s)" *ngIf="!s.child">
             <ion-col col-2>
               {{s.index}}
             </ion-col>
             <ion-col col-6>
               {{s.zone}}
             </ion-col>
-            <ion-col>
-                <ion-checkbox disabled="{{visible!=s.id || s.na==true}}"  [(ngModel)]="s.avaliable"  color="secondary"></ion-checkbox>
+            <ion-col *ngIf="s.childcheckbox !=true">
+                <ion-checkbox   [(ngModel)]="s.avaliable" (ngModelChange)="NextComment(s)"  color="secondary"></ion-checkbox>
             </ion-col>
-            <ion-col>
+            <ion-col *ngIf="s.childcheckbox !=true">
                 <ion-checkbox   [(ngModel)]="s.na" (ngModelChange)="ChangeNa(s)"  color="secondary"></ion-checkbox>
             </ion-col>
           </ion-row>
-          <ion-row *ngIf="visible==s.id" text-left>
+          <ion-row *ngIf="visible==s.id && s.childcheckbox !=true" >
             <ion-col >
               <ion-card>
-                <ion-card-content>
+                <ion-card-content *ngIf="s.childcheckbox != true">
                     {{s.tool}}
                 </ion-card-content>
+                <ion-card-content *ngIf="s.childcheckbox && visible==s.childid ">
+
+                    <ion-row >
+                        <ion-col text-left col-10>
+                            {{s.tool}}
+                        </ion-col>
+                        <ion-col >
+                            <ion-checkbox  [(ngModel)]="s.avaliable"   color="secondary"></ion-checkbox>
+                        </ion-col>
+                        <ion-col>
+                            <ion-checkbox   [(ngModel)]="s.na" color="secondary"></ion-checkbox>
+                        </ion-col>
+                    </ion-row>
+                </ion-card-content>
+
+
               </ion-card>
             </ion-col>
         </ion-row>
+          <ion-row *ngIf="s.childcheckbox && visible==s.childid" text-left class="childrow">
+          <ion-col >
+            <ion-card>
+              <ion-card-content >
+                <ion-row>
+                      <ion-col text-left col-8>
+                          {{s.tool}}
+                      </ion-col>
+                      <ion-col >
+                          <ion-checkbox  [(ngModel)]="s.avaliable" (ngModelChange)="NextCommentChild(s)"  color="secondary"></ion-checkbox>
+                      </ion-col>
+                      <ion-col>
+                          <ion-checkbox   [(ngModel)]="s.na" (ngModelChange)="ChangeNaChild(s)"  color="secondary"></ion-checkbox>
+                      </ion-col>
+                  </ion-row>
+              </ion-card-content>
+
+
+            </ion-card>
+          </ion-col>
+      </ion-row>
       </div>
       </div>
     </ion-slide>
@@ -115,16 +175,14 @@
       <div  class="ion-slide-content">
 
         <ion-row class="bottom-hr">
-          <ion-col col-5>
-            <strong>Shelf Description</strong>
-          </ion-col>
-          <ion-col col-3>
+
+          <ion-col col-8 text-left>
             <strong>Brand</strong>
           </ion-col>
-          <ion-col>
-              <strong>AV</strong>
+          <ion-col text-center>
+              <strong>Yes</strong>
           </ion-col>
-          <ion-col>
+          <ion-col text-center>
               <strong>N/A</strong>
           </ion-col>
         </ion-row>
@@ -137,7 +195,7 @@
               {{s.zone}}
             </ion-col>
             <ion-col text-right>
-                <ion-checkbox disabled="{{visible!=s.id || s.na==true}}"  [(ngModel)]="s.avaliable"  color="secondary"></ion-checkbox>
+                <ion-checkbox   [(ngModel)]="s.avaliable"  color="secondary" (ngModelChange)="NextComment(s)"  ></ion-checkbox>
             </ion-col>
             <ion-col>
                 <ion-checkbox   [(ngModel)]="s.na" (ngModelChange)="ChangeNa(s)"  color="secondary"></ion-checkbox>
@@ -153,7 +211,7 @@
               {{s.zone}}
             </ion-col>
             <ion-col text-right>
-                <ion-checkbox disabled="{{visible!=s.id || s.na==true}}"  [(ngModel)]="s.avaliable"  color="secondary"></ion-checkbox>
+                <ion-checkbox   [(ngModel)]="s.avaliable"  color="secondary" (ngModelChange)="NextComment(s)"></ion-checkbox>
             </ion-col>
             <ion-col>
                 <ion-checkbox   [(ngModel)]="s.na" (ngModelChange)="ChangeNa(s)"  color="secondary"></ion-checkbox>
@@ -204,7 +262,7 @@
     <ion-grid >
         <ion-row no-padding no-margin>
             <ion-col col-5 no-padding>
-                <button ion-button full (click)="back()" *ngIf="showBack">უკან</button>
+                <button ion-button full (click)="back()" *ngIf="showBack">{{prevBtn}}</button>
             </ion-col>
             <ion-col col-2 no-padding>
 

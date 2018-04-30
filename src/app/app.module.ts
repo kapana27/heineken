@@ -12,6 +12,9 @@ import { ShowStorePage } from '../pages/show-store/show-store';
 import { AddstorePage } from '../pages/addstore/addstore';
 import { StoreModalPage } from '../pages/store-modal/store-modal';
 import { StorelistPage} from '../pages/storelist/storelist';
+import { TradePage} from '../pages/trade/trade';
+import { ChannelPage} from '../pages/channel/channel';
+import { ScorePage } from '../pages/score/score';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -30,7 +33,10 @@ import { ScoreProvider } from '../providers/score/score';
     ShowStorePage,
     AddstorePage,
     StorelistPage,
-    StoreModalPage
+    StoreModalPage,
+    TradePage,
+    ChannelPage,
+    ScorePage
   ],
   imports: [
     BrowserModule,
@@ -47,7 +53,10 @@ import { ScoreProvider } from '../providers/score/score';
     ShowStorePage,
     AddstorePage,
     StorelistPage,
-    StoreModalPage
+    StoreModalPage,
+    TradePage,
+    ChannelPage,
+    ScorePage
   ],
   providers: [
     StatusBar,

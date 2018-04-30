@@ -1,5 +1,6 @@
 import { Component,ViewChild } from '@angular/core';
 import {StorelistPage} from '../storelist/storelist';
+import {ScorePage} from '../score/score';
 import {StoreModalPage} from '../store-modal/store-modal';
 import { AddStoreProvider } from '../../providers/add-store/add-store';
 import { ScoreProvider } from '../../providers/score/score';
@@ -34,12 +35,13 @@ export class AddstorePage {
   gender: string = "f";
   os: string;
   music: string;
-  nextBtn:string="შემდეგი";
+  nextBtn:string="next";
+  prevBtn:string="next";
   month: string;
   year: number;
   visible:number=0;
   storeScore:number=0;
-  header:string="მაღაზიის დამატება";
+  header:string="Add Store";
   musicAlertOpts: { title: string, subTitle: string };
   dialog:any;
   @ViewChild(Slides) slides: Slides;
@@ -52,6 +54,7 @@ export class AddstorePage {
               public alertCtrl: AlertController,
               public score:ScoreProvider
             ) {
+                console.log(navParams.data);
                 this.header='Availability and Price';
                 this.name=navParams.data.name;
                 if(this.store.setName(this.name)){
@@ -72,6 +75,7 @@ export class AddstorePage {
 
   equalPrice(param){
     if(param.equal){
+
       param.notequal=false;
     }
   }
@@ -96,6 +100,7 @@ export class AddstorePage {
           text: 'Cancel',
           handler: data => {
             if(data.Price==undefined || data.Price==null || data.Price==""){
+
             param.notequal=false;
             }
           }
@@ -104,6 +109,7 @@ export class AddstorePage {
           text: 'Save',
           handler: data => {
               if(data.Price==undefined || data.Price==null || data.Price==""){
+
                 param.notequal=true;
               }
               param.comment=data.Price;
@@ -123,27 +129,29 @@ export class AddstorePage {
     this.dialog.present();
   }
   showComment(s){
-
+    console.log(s.id);
       this.visible=s.id;
   }
   slideChanged(){
 
     this.currentIndex = this.slides.getActiveIndex();
+      console.log(this.currentIndex);
       switch(this.currentIndex){
         case 0:this.header='Information '; break;
-          case 1:this.header='Availability and Price'; break;
-            case 2:this.header='Visibility'; break;
-              case 3:this.header='Shelf Planogram'; break;
-                case 4:this.header='Quality'; break;
-                  case 5:this.header=this.name; break;
+          case 1:this.header='Channel Parameterschan '; break;
+          case 2:this.header='Availability and Price'; break;
+            case 3:this.header='Visibility'; this.showComment({id:6}); break;
+              case 4:this.header='Shelf Planogram'; this.showComment({id:11}); break;
+                case 5:this.header='Quality'; break;
+                  case 6:this.header=this.name; break;
           default: break;
         }
 
 
-      if(this.currentIndex==5){
+      if(this.currentIndex==6){
         this.showFooter=false;
       }else{
-        (this.currentIndex==4)?  this.nextBtn="დასრულება":this.nextBtn="შემდეგი";
+        (this.currentIndex==5)?  this.nextBtn="finish":this.nextBtn="next";
           this.showFooter=true;
       }
       if(this.currentIndex==0){
@@ -152,8 +160,31 @@ export class AddstorePage {
           this.showBack=true;
       }
     }
+    checkYesNo(s,type){
+      if(type=='yes'){
+        if(s.yes){
+            s.no=false;
+        }
+      }else{
+        if(s.no){
+            s.yes=false;
+        }
+      }
+    }
+    AvaliableFunc(s,type){
+      if(type=='yes'){
+        if(s.avaliable){
+            this.visible=s.id;
+            s.notavaliable=false;
+        }
+      }else{
+        if(s.notavaliable){
+            s.avaliable=false;
+        }
+      }
+    }
     next(){
-      if(this.slides.getActiveIndex()==4){
+      if(this.slides.getActiveIndex()==5){
           this.finish();
       }
       this.slides.slideNext(200);
@@ -167,8 +198,8 @@ export class AddstorePage {
         content: "Please wait..."
       });
       let confirm = this.alertCtrl.create({
-            title: 'მაღაზიის დამატება?',
-            message: 'დარწმუნებული ხართ რომ გსურთ "'+this.name+'" დამატება',
+            title: 'Add Store',
+            message: 'Do you want to save the entry?',
             buttons: [
               {
                 text: 'Disagree',
@@ -181,26 +212,8 @@ export class AddstorePage {
                 handler: () => {
                   if(this.storeScore=this.score.calculate(this.params)){
                     this.params.score=this.storeScore;
-                    let ScoreConfirm = this.alertCtrl.create({
-                      title: 'Score',
-                      message: 'Score is '+this.storeScore,
-                      buttons: [
-
-                        {
-                          text: 'ok',
-                          handler: () => {
-                            loader.present();
-                            if(this.store.save(this.name,this.params)){
-                              setTimeout(() => {
-                                loader.dismiss();
-                                  this.navCtrl.setRoot(StorelistPage,{data:"reload"});
-                              }, 1000);
-                            }
-                          }
-                        }
-                      ]
-                    });
-                    ScoreConfirm.present();
+                    this.store.save(this.name,this.params);
+                      this.navCtrl.setRoot(ScorePage,{"score":this.params.score});
                   }else{
                     let alert = this.alertCtrl.create({
                        title: 'message',
@@ -222,6 +235,27 @@ export class AddstorePage {
             data.avaliable=false;
             data.disabled=true;
             data.equal=false;
+            this.visible=data.id+1;
+        }
+    }
+    NextComment(s){
+      console.log(s);
+        if(s.avaliable){
+            this.visible=s.id+1;
+            console.log(this.visible);
+        }
+    }
+    NextCommentChild(s){
+        if(s.avaliable && s.parrentid =='7'){
+          this.visible=s.id+1;
+        }
+    }
+    ChangeNaChild(data ){
+        if(data.na && data.parrentid =='7'){
+            data.avaliable=false;
+            data.disabled=true;
+            data.equal=false;
+            //this.visible=data.id+1;
         }
     }
     dismiss(){

@@ -18,8 +18,8 @@
     {{s.name}}
     </ion-card-header>
     <ion-card-content>
-      <p>  თარიღი: <span text-right>{{s.date}}</span></p>
-      <p>  შემოწმება: <span text-right>{{s.check}}</span> </p>
+      <p>  Date: <span text-right>{{s.date}}</span></p>
+      <p>  User: <span text-right>{{s.check}}</span> </p>
     </ion-card-content>
   </ion-card>
 
@@ -29,7 +29,7 @@
         <ion-row no-padding no-margin>
 
             <ion-col >
-                <button ion-fab color="danger" class="btn-footer"  (click)="AddNewStore()"><ion-icon name="add"></ion-icon></button>
+                <button ion-fab color="danger" class="btn-footer"  (click)="createStore()"><ion-icon name="add"></ion-icon></button>
             </ion-col>
 
         </ion-row>

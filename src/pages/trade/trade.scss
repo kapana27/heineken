@@ -1,0 +1,15 @@
+page-trade {
+  ion-card{
+    height:150px;
+    margin-top:20% !important;
+
+    background: green !important;
+    color:white;
+  }
+
+  ion-card .card-title{
+      line-height: 150px;
+      font-weight: bold;
+      font-size:20px;
+  }
+}
